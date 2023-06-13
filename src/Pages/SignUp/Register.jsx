@@ -2,8 +2,11 @@ import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Register = () => {
+    const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { createUser } = useContext(AuthContext);
 
@@ -13,6 +16,13 @@ const Register = () => {
         .then(result => {
             const loggedUser = result.user;
             console.log(loggedUser);
+            Swal.fire({
+                icon: 'success',
+                title: 'Registered Successfully',
+                showConfirmButton: false,
+                timer: 1500
+            });
+            navigate('/');
         }).catch(error => {
             console.log(error.message);
         })

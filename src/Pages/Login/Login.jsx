@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FcGoogle } from 'react-icons/fc';
 import { BiHide, BiShow } from 'react-icons/bi';
 import { useContext, useState } from "react";
@@ -7,6 +7,9 @@ import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from 'sweetalert2'
 
 const Login = () => {
+    const navigate = useNavigate();
+    const location =useLocation();
+    const source = location.state?.from?.pathname || '/';
 
     const { signIn, googleUser } = useContext(AuthContext);
     const [error, setError] = useState(null);
@@ -30,7 +33,8 @@ const Login = () => {
                     title: 'Logged In Successfully',
                     showConfirmButton: false,
                     timer: 1500
-                  })
+                });
+                navigate(source);
             })
             .catch(error => {
                 console.log(error.message);
