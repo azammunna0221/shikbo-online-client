@@ -4,10 +4,11 @@ import { FcGoogle } from 'react-icons/fc';
 import { BiHide, BiShow } from 'react-icons/bi';
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
+import Swal from 'sweetalert2'
 
 const Login = () => {
 
-    const { login, googleUser } = useContext(AuthContext);
+    const { signIn, googleUser } = useContext(AuthContext);
     const [error, setError] = useState(null);
 
     const [passwordVisible, setPasswordVisible] = useState(false);
@@ -19,11 +20,17 @@ const Login = () => {
         const email = form.email.value;
         const password = form.password.value;
         console.log(email, password);
-        login(email, password)
+        signIn(email, password)
             .then(result => {
                 const loggedUser = result.user;
                 console.log(loggedUser);
                 form.reset();
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Logged In Successfully',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
             })
             .catch(error => {
                 console.log(error.message);
@@ -36,6 +43,12 @@ const Login = () => {
             .then(result => {
                 const loggedUser = result.user;
                 console.log(loggedUser);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Logged In Successfully',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
             })
             .catch(error => {
                 setError(error.message);

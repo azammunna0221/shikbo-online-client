@@ -5,33 +5,18 @@ import { useForm } from "react-hook-form";
 
 const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    
-    const onSubmit = data => {
-        console.log(data)
-    };
-
-
-
     const { createUser } = useContext(AuthContext);
 
-    /* const handleCreateUser = (e) => {
-        e.preventDefault();
-        const form = e.target;
-        const firstName = form.name.value;
-        const email = form.email.value;
-        const password = form.password.value;
-        const confirmPassword = form.confirmPassword.value;
-        const url = form.url.value;
-        console.log(firstName, email, password, confirmPassword, url);
-
-        createUser(email, password)
+    const onSubmit = data => {
+        console.log(data);
+        createUser(data.email, data.password)
         .then(result => {
             const loggedUser = result.user;
             console.log(loggedUser);
         }).catch(error => {
             console.log(error.message);
         })
-    } */
+    };
 
     return (
         <div>
