@@ -1,8 +1,21 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { FcGoogle } from 'react-icons/fc';
+import { BiHide, BiShow } from 'react-icons/bi';
+import { useState } from "react";
 
 const Login = () => {
+    const [passwordVisible, setPasswordVisible] = useState(false);
+    const [password, setPassword] = useState('');
+
+    const handlePasswordVisibility = () => {
+        setPasswordVisible(!passwordVisible);
+    };
+
+    const handlePasswordChange = (e) => {
+        setPassword(e.target.value);
+    };
+
     return (
         <div>
             <Helmet>
@@ -18,15 +31,23 @@ const Login = () => {
                                 </label>
                                 <input type="text" placeholder="email" className="input input-bordered" />
                             </div>
-                            <div className="form-control">
+                            <div className="relative form-control">
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
-                                <input type="text" placeholder="password" className="input input-bordered" />
+                                <input
+                                    type={passwordVisible ? 'text' : 'password'}
+                                    id="password"
+                                    value={password}
+                                    onChange={handlePasswordChange}
+                                    placeholder="password"
+                                    className="input input-bordered" />
+                                <button onClick={handlePasswordVisibility} className="absolute top-[40%] right-3">
+                                    {passwordVisible ? <BiHide/> : <BiShow/>}
+                                </button>
                                 <label className="label">
-
                                     <small>If you are not register?
-                                    <Link className="label-text-alt link link-hover text-blue-700"> Sign Up!</Link>
+                                        <Link to="/register" className="label-text-alt link link-hover text-blue-700"> Sign Up!</Link>
                                     </small>
                                 </label>
                             </div>
