@@ -52,7 +52,8 @@ const Login = () => {
                     title: 'Logged In Successfully',
                     showConfirmButton: false,
                     timer: 1500
-                  })
+                })
+                navigate(source);
             })
             .catch(error => {
                 setError(error.message);

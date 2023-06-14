@@ -6,6 +6,8 @@ import Register from "../Pages/SignUp/Register";
 import Classes from "../Pages/Home/Classes/Classes";
 import Instructor from "../Pages/Home/Instructors/Instructor";
 import Error from "../Error/Error";
+import Dashboard from "../Layout/Dashboard";
+import ManageClasses from "../Pages/Dashboard/ManageClasses";
 
 
 export const router = createBrowserRouter([
@@ -36,8 +38,17 @@ export const router = createBrowserRouter([
             path: '/instructor',
             element: <Instructor></Instructor>,
             loader: () => fetch("http://localhost:5000/instructors")
-        }
+        },
       ] 
-      
     },
+    {
+        path: '/dashboard',
+        element: <Dashboard></Dashboard>,
+        children: [
+            {
+                path: '/manageClasses',
+                element: <ManageClasses></ManageClasses>,
+            },
+        ]
+    }
   ]);

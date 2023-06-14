@@ -6,12 +6,12 @@ import { AuthContext } from "../../Provider/AuthProvider";
 
 const Navbar = () => {
 
-    const { user, logOut} = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
 
-    const handleLogout = () =>{
+    const handleLogout = () => {
         logOut()
-        .then(() => {})
-        .catch(error => console.log(error))
+            .then(() => { })
+            .catch(error => console.log(error))
     }
 
     return (
@@ -23,10 +23,10 @@ const Navbar = () => {
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                         </label>
                         <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                            <li><NavLink>Home</NavLink></li>
-                            <li><NavLink>Instructors</NavLink></li>
-                            <li><NavLink>Classes</NavLink></li>
-                            <li><NavLink>Dashboard</NavLink></li>
+                        <li><NavLink to="/">Home</NavLink></li>
+                        <li><NavLink to="/instructor">Instructors</NavLink></li>
+                        <li><NavLink to="/classes">Classes</NavLink></li>
+                        <li><NavLink to="/dashboard">Dashboard</NavLink></li>
                         </ul>
                     </div>
                     <a className="btn btn-ghost normal-case text-xl">Shikhbo Online</a>
@@ -43,10 +43,14 @@ const Navbar = () => {
                     <Theme></Theme>
                     {
                         user ? <>
-                        <button onClick={handleLogout} className="btn">Logout</button> </> : <>
-                        <Link to="/login" className="btn">Login</Link> </>
+                            <button onClick={handleLogout} className="btn mx-2">Logout</button>
+                            <div className="w-10">
+                                <img className=" rounded-full" src={user.photoURL} />
+                            </div>
+                        </> : <>
+                            <Link to="/login" className="btn">Login</Link> </>
                     }
-                    
+
                 </div>
             </div>
         </div>

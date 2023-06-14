@@ -9,6 +9,7 @@ const Instructor = () => {
             <Helmet>
                 <title>SC || Instructors</title>
             </Helmet>
+            <h1 className=" font-sans font-extrabold text-5xl text-center my-10">ALL INSTRUCTORS</h1>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
             {
                 allInstructors.map(i => <div
