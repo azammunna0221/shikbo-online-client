@@ -1,10 +1,55 @@
 import { useContext } from "react";
-import { Link, useLoaderData } from "react-router-dom";
+import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Provider/AuthProvider";
+import Swal from "sweetalert2";
 
 const Classes = () => {
     const allClasses = useLoaderData();
     const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const handleToAddClass = (c) => {
+        const {_id, name, instructor, available_seats, price} = c;
+        console.log(c);
+        if (user && user.email) {
+            const selectCourse ={courseId: _id, name, instructor,available_seats,price, email: user.email}
+            fetch('http://localhost:5000/myClass', {
+                method: 'POST',
+                headers: {
+                    "content-type" : "application/json"
+                },
+                body: JSON.stringify(selectCourse)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.insertedId) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Course added Successfully',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    }
+
+                })
+        }
+        else {
+            Swal.fire({
+                title: 'Please! Login First',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Login Now!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    navigate('/login', {state:{from: location}})
+                }
+            })
+        }
+    }
 
     return (
         <div>
@@ -26,13 +71,7 @@ const Classes = () => {
                                 <p>Course Fee : ${c.price}</p>
                             </div>
                             <div className="mx-auto ">
-                                {
-                                    user? 
-                                    <><button disabled={c.available_seats === 0} className="btn btn-outline">Select</button></> : 
-                                    <>
-                                    <Link to="/login"><button className="btn btn-disabled">Select</button></Link>
-                                    </>
-                                }
+                                <button onClick={() => handleToAddClass(c)} disabled={c.available_seats === 0} className="btn btn-outline">Select</button>
                             </div>
                         </div>
                     </div>)
