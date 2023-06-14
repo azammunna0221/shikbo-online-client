@@ -2,8 +2,11 @@ import { Link, Outlet } from "react-router-dom";
 import { MdOutlineClass,MdPayment,MdHome } from 'react-icons/md';
 import { TbBooks } from 'react-icons/tb';
 import Theme from "../Components/Theme";
+import useMyClass from "../hooks/useMyClass";
 
 const Dashboard = () => {
+
+    const [ course] = useMyClass();
     return (
         <div>
             <div className="drawer lg:drawer-open">
@@ -21,7 +24,8 @@ const Dashboard = () => {
                         <li><Theme></Theme></li>
                         <li><Link><MdHome/>User Home</Link></li>
                         <li><Link><MdPayment/>Payment History</Link></li>
-                        <li><Link to='/dashboard/manageClasses'><MdOutlineClass />My Classes</Link></li>
+                        <li>
+                            <Link to='/dashboard/manageClasses'><MdOutlineClass />My Classes<span className="badge badge-secondary">{course?.length || 0}</span></Link></li>
                         <li><Link><TbBooks/>My Enrolled Classes</Link></li>
                     </ul>
 
