@@ -2,18 +2,20 @@ import { useContext } from "react";
 import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Provider/AuthProvider";
 import Swal from "sweetalert2";
+import useMyClass from "../../../hooks/useMyClass";
 
 const Classes = () => {
     const allClasses = useLoaderData();
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
+    const [, refetch ] = useMyClass();
 
     const handleToAddClass = (c) => {
-        const {_id, name, instructor, available_seats, price} = c;
+        const {_id, name, instructor, available_seats, price, image} = c;
         console.log(c);
         if (user && user.email) {
-            const selectCourse ={courseId: _id, name, instructor,available_seats,price, email: user.email}
+            const selectCourse ={courseId: _id, name, instructor,available_seats,price, image, email: user.email}
             fetch('http://localhost:5000/myClass', {
                 method: 'POST',
                 headers: {
@@ -24,6 +26,7 @@ const Classes = () => {
                 .then(res => res.json())
                 .then(data => {
                     if (data.insertedId) {
+                        refetch();
                         Swal.fire({
                             icon: 'success',
                             title: 'Course added Successfully',
