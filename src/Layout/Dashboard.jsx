@@ -10,6 +10,7 @@ const Dashboard = () => {
 
     //TODO Admin Swap
     const isAdmin = true;
+    const isInstructor = false;
 
 
     return (
@@ -28,16 +29,23 @@ const Dashboard = () => {
                         {
                             isAdmin ? <>
                                 <li><Theme></Theme></li>
+                                <li className="font-bold m-4">Admin Panel</li>
                                 <li><Link><MdHome />Admin Home</Link></li>
                                 <li><Link><MdPayment />Manage Users</Link></li>
-                                <li>
-                                    <Link to='/dashboard/manageClasses'><MdOutlineClass />Manage Classes<span className="badge badge-secondary">{course?.length || 0}</span></Link></li>
+                                <li><Link><TbBooks />Manage classes</Link></li>
+                            </> : isInstructor ? <>
+                                <li><Theme></Theme></li>
+                                <li className="font-bold m-4">Instructor Panel</li>
+                                <li><Link><MdHome />Instructor Home</Link></li>
+                                <li><Link><MdPayment />Add a class</Link></li>
+                                <li><Link><TbBooks />My classes</Link></li>
                             </> : <>
                                 <li><Theme></Theme></li>
-                                <li><Link><MdHome />user Home</Link></li>
+                                <li className="font-bold m-4">Student Panel</li>
+                                <li><Link><MdHome />Student Home</Link></li>
                                 <li><Link><MdPayment />Payment History</Link></li>
                                 <li>
-                                    <Link to='/dashboard/manageClasses'><MdOutlineClass />My Classes<span className="badge badge-secondary">{course?.length || 0}</span></Link></li>
+                                    <Link to='/dashboard/selectClasses'><MdOutlineClass />My Classes<span className="badge badge-secondary">{course?.length || 0}</span></Link></li>
                                 <li><Link><TbBooks />My Enrolled Classes</Link></li>
                             </>
                         }
