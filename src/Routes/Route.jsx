@@ -7,8 +7,8 @@ import Classes from "../Pages/Home/Classes/Classes";
 import Instructor from "../Pages/Home/Instructors/Instructor";
 import Error from "../Error/Error";
 import Dashboard from "../Layout/Dashboard";
-import ManageClasses from "../Pages/Dashboard/ManageClasses";
 import PrivateRoute from "./PrivateRoute";
+import SelectClasses from "../Pages/Dashboard/selectClasses";
 
 
 export const router = createBrowserRouter([
@@ -48,7 +48,7 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: 'manageClasses',
-                element: <ManageClasses></ManageClasses>,
+                element: <SelectClasses></SelectClasses>
             },
         ]
     }

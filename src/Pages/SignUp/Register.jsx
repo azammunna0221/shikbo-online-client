@@ -2,13 +2,17 @@ import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { FcGoogle } from 'react-icons/fc';
 import Swal from "sweetalert2";
 
 const Register = () => {
     const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { createUser, updateUserProfile } = useContext(AuthContext);
+    const { createUser, updateUserProfile, googleUser } = useContext(AuthContext);
+    const location = useLocation();
+    const source = location.state?.from?.pathname || '/';
+
 
     const onSubmit = data => {
         console.log(data);
@@ -18,11 +22,11 @@ const Register = () => {
                 console.log(loggedUser);
                 updateUserProfile(data.name, data.url)
                     .then(() => {
-                        const saveInfo = {name: data.name, email: data.email}
-                        fetch("http://localhost:5000/users",{
+                        const saveInfo = { name: data.name, email: data.email }
+                        fetch("http://localhost:5000/users", {
                             method: "POST",
                             headers: {
-                                "content-type" : 'application/json'
+                                "content-type": 'application/json'
                             },
                             body: JSON.stringify(saveInfo)
                         })
@@ -35,16 +39,37 @@ const Register = () => {
                                         showConfirmButton: false,
                                         timer: 1500
                                     });
+                                    navigate('/')
                                 }
                             })
-
                     })
-                navigate('/');
             })
             .catch(error => {
                 console.log(error.message);
             })
     };
+    //google user
+    const handleGoogleUser = () => {
+        googleUser()
+            .then(result => {
+                const loggedUser = result.user;
+                console.log(loggedUser);
+                const saveInfo = { name: loggedUser.displayName, email: loggedUser.email }
+                fetch("http://localhost:5000/users", {
+                    method: "POST",
+                    headers: {
+                        "content-type": 'application/json'
+                    },
+                    body: JSON.stringify(saveInfo)
+                })
+                    .then(res => res.json())
+                    .then(() => {
+                        navigate(source, {replace: true});
+                    })
+            }).catch(error => {
+                console.log(error.message);
+            })
+    }
 
     return (
         <div>
@@ -104,6 +129,9 @@ const Register = () => {
                                 <button type="submit" className="btn btn-primary">Register</button>
                             </div>
                         </form>
+                        <div className="mx-auto mb-6">
+                            <button onClick={handleGoogleUser} className="btn btn-outline rounded-full text-xl"><FcGoogle /></button>
+                        </div>
                     </div>
                 </div>
             </div>

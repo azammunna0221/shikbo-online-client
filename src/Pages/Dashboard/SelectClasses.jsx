@@ -1,11 +1,13 @@
 import { Helmet } from "react-helmet";
-import useMyClass from "../../hooks/useMyClass";
 import { AiTwotoneDelete } from 'react-icons/ai';
 import Swal from "sweetalert2";
+import useMyClass from "../../hooks/useMyClass";
 
-const ManageClasses = () => {
+
+const SelectClasses = () => {
     const [course, refetch] = useMyClass();
     const total = course.reduce((sum, item) => item.price + sum, 0)
+
 
     const handleDelete = item => {
         Swal.fire({
@@ -92,4 +94,4 @@ const ManageClasses = () => {
     );
 };
 
-export default ManageClasses;
+export default SelectClasses;

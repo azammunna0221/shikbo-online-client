@@ -34,7 +34,7 @@ const Login = () => {
                     showConfirmButton: false,
                     timer: 1500
                 });
-                navigate(source);
+                navigate(source, {replace:true});
             })
             .catch(error => {
                 console.log(error.message);
@@ -42,6 +42,7 @@ const Login = () => {
             })
 
     }
+    //Google User
     const handleGoogleUser = () => {
         googleUser()
             .then(result => {
@@ -53,7 +54,7 @@ const Login = () => {
                     showConfirmButton: false,
                     timer: 1500
                 })
-                navigate(source);
+                navigate(source, {replace:true});
             })
             .catch(error => {
                 setError(error.message);
