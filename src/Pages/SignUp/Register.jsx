@@ -8,24 +8,42 @@ import Swal from "sweetalert2";
 const Register = () => {
     const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { createUser } = useContext(AuthContext);
+    const { createUser, updateUserProfile } = useContext(AuthContext);
 
     const onSubmit = data => {
         console.log(data);
         createUser(data.email, data.password)
-        .then(result => {
-            const loggedUser = result.user;
-            console.log(loggedUser);
-            Swal.fire({
-                icon: 'success',
-                title: 'Registered Successfully',
-                showConfirmButton: false,
-                timer: 1500
-            });
-            navigate('/');
-        }).catch(error => {
-            console.log(error.message);
-        })
+            .then(result => {
+                const loggedUser = result.user;
+                console.log(loggedUser);
+                updateUserProfile(data.name, data.url)
+                    .then(() => {
+                        const saveInfo = {name: data.name, email: data.email}
+                        fetch("http://localhost:5000/users",{
+                            method: "POST",
+                            headers: {
+                                "content-type" : 'application/json'
+                            },
+                            body: JSON.stringify(saveInfo)
+                        })
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.insertedId) {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Registered Successfully',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                }
+                            })
+
+                    })
+                navigate('/');
+            })
+            .catch(error => {
+                console.log(error.message);
+            })
     };
 
     return (
@@ -48,17 +66,18 @@ const Register = () => {
                                 <label className="label">
                                     <span className="label-text">Email</span>
                                 </label>
-                                <input {...register("email",{ required: true })} name="email" type="email" placeholder="Email" className="input input-bordered" />
+                                <input {...register("email", { required: true })} name="email" type="email" placeholder="Email" className="input input-bordered" />
                                 {errors.email && <span className=" text-red-500">This field is required</span>}
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
-                                <input {...register("password",{ required: true, minLength: 6,
-                                pattern: /(?=.*?[A-Z])(?=.*?[#?!@$%^&*-])/
-                            })} 
-                                name="password" type="text" placeholder="password" className="input input-bordered" />
+                                <input {...register("password", {
+                                    required: true, minLength: 6,
+                                    pattern: /(?=.*?[A-Z])(?=.*?[#?!@$%^&*-])/
+                                })}
+                                    name="password" type="text" placeholder="password" className="input input-bordered" />
                                 {errors.password?.type === 'required' && <span className=" text-red-500">This field is required</span>}
                                 {errors.password?.type === 'minLength' && <span className=" text-red-500">Minimum length should be 6</span>}
                                 {errors.password?.type === 'pattern' && <span className=" text-red-500"> Minimum one Uppercase,  one Special character</span>}
@@ -67,8 +86,10 @@ const Register = () => {
                                 <label className="label">
                                     <span className="label-text">Confirm Password</span>
                                 </label>
-                                <input {...register("confirmPassword", { required: true, minLength: 6,
-                                pattern: /(?=.*?[A-Z])(?=.*?[#?!@$%^&*-])/ })} name="confirmPassword" type="text" placeholder="password" className="input input-bordered" />
+                                <input {...register("confirmPassword", {
+                                    required: true, minLength: 6,
+                                    pattern: /(?=.*?[A-Z])(?=.*?[#?!@$%^&*-])/
+                                })} name="confirmPassword" type="text" placeholder="password" className="input input-bordered" />
                                 {errors.password?.type === 'required' && <span className=" text-red-500">This field is required</span>}
                                 {errors.password?.type === 'minLength' && <span className=" text-red-500">Minimum length should be 6</span>}
                                 {errors.password?.type === 'pattern' && <span className=" text-red-500"> Minimum one Uppercase,  one Special character</span>}
