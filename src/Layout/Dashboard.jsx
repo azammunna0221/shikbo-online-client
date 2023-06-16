@@ -31,8 +31,8 @@ const Dashboard = () => {
                                 <li><Theme></Theme></li>
                                 <li className="font-bold m-4">Admin Panel</li>
                                 <li><Link><MdHome />Admin Home</Link></li>
-                                <li><Link><MdPayment />Manage Users</Link></li>
-                                <li><Link><TbBooks />Manage classes</Link></li>
+                                <li><Link to="/dashboard/manageUsers"><MdPayment />Manage Users</Link></li>
+                                <li><Link to="/dashboard/manageClasses"><TbBooks />Manage classes</Link></li>
                             </> : isInstructor ? <>
                                 <li><Theme></Theme></li>
                                 <li className="font-bold m-4">Instructor Panel</li>

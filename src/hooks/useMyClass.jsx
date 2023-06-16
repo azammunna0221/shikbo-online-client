@@ -14,8 +14,7 @@ const useMyClass = () => {
             return res.json();
         },
       })
-      return [course, refetch ]
-   
+      return [course, refetch]
 };
 
 export default useMyClass;
