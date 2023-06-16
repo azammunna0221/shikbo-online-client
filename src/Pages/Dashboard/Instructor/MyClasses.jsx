@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { useLoaderData } from "react-router-dom";
 import { AuthContext } from "../../../Provider/AuthProvider";
+import { Fade } from "react-awesome-reveal";
 
 const MyClasses = () => {
 
@@ -38,32 +39,34 @@ const MyClasses = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {
-                                filteredClasses.map((course, index) => <tr
-                                    key={course._id}
-                                >
-                                    <td>{index + 1}</td>
-                                    <td>
-                                        <div className="flex items-center space-x-3">
-                                            <div className="avatar">
-                                                <div className="mask mask-squircle w-12 h-12">
-                                                    <img src={course.image} alt="image" />
+                            <Fade cascade>
+                                {
+                                    filteredClasses.map((course, index) => <tr
+                                        key={course._id}
+                                    >
+                                        <td>{index + 1}</td>
+                                        <td>
+                                            <div className="flex items-center space-x-3">
+                                                <div className="avatar">
+                                                    <div className="mask mask-squircle w-12 h-12">
+                                                        <img src={course.image} alt="image" />
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div className="font-bold">{course.name}</div>
                                                 </div>
                                             </div>
-                                            <div>
-                                                <div className="font-bold">{course.name}</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td><div className="font-bold">{course.instructor}</div></td>
-                                    <td>{course.enrolled || '0'}</td>
-                                    <td>${course.price}</td>
-                                    <td>{course.status || 'Pending'}</td>
-                                    <td>
-                                        <button className="btn btn-sm">Feedback</button>
-                                    </td>
-                                </tr>)
-                            }
+                                        </td>
+                                        <td><div className="font-bold">{course.instructor}</div></td>
+                                        <td>{course.enrolled || '0'}</td>
+                                        <td>${course.price}</td>
+                                        <td>{course.status || 'Pending'}</td>
+                                        <td>
+                                            <button className="btn btn-sm">Feedback</button>
+                                        </td>
+                                    </tr>)
+                                }
+                            </Fade>
                         </tbody>
                     </table>
                 </div>

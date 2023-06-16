@@ -1,5 +1,7 @@
 import { Helmet } from "react-helmet";
 import useAllClasses from "../../../hooks/useAllClasses";
+import { Fade } from "react-awesome-reveal";
+
 
 const ManageClasses = () => {
 
@@ -49,13 +51,14 @@ const ManageClasses = () => {
                                 <td>{course.available_seats}</td>
                                 <td>${course.price}</td>
                                 <td>{course.status || 'Pending'}</td>
-                                <td>
-                                    <button className="btn btn-sm mb-1 ">Approved</button> <br />
-                                    <button className="btn btn-sm mb-1">Deny</button> <br />
-                                    <button className="btn btn-sm">Feedback</button>
-                                </td>
+                                <Fade cascade>
+                                    <td>
+                                        <button className="btn btn-sm mb-1 ">Approved</button> <br />
+                                        <button className="btn btn-sm mb-1">Deny</button> <br />
+                                        <button className="btn btn-sm">Feedback</button>
+                                    </td> 
+                                </Fade>
                             </tr>)
-
                         }
                     </tbody>
                 </table>

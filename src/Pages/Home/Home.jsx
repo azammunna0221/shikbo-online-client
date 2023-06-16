@@ -19,7 +19,6 @@ const Home = () => {
             <ShowClass course ={showClasses}></ShowClass>
             <Pop_Ins></Pop_Ins>
             <Offer></Offer>
-            <p className=" font-extrabold text-amber-500">hello school {allClasses.length} </p>
         </div>
     );
 };
