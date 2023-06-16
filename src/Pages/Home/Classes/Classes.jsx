@@ -3,6 +3,8 @@ import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Provider/AuthProvider";
 import Swal from "sweetalert2";
 import useMyClass from "../../../hooks/useMyClass";
+import useInstructor from "../../../hooks/useInstructor";
+import useAdmin from "../../../hooks/useAdmin";
 
 const Classes = () => {
     const allClasses = useLoaderData();
@@ -10,6 +12,8 @@ const Classes = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [, refetch ] = useMyClass();
+    const [isInstructor] = useInstructor();
+    const [isAdmin] = useAdmin();
 
     const handleToAddClass = (c) => {
         const {_id, name, instructor, available_seats, price, image} = c;
@@ -74,7 +78,7 @@ const Classes = () => {
                                 <p>Course Fee : ${c.price}</p>
                             </div>
                             <div className="mx-auto ">
-                                <button onClick={() => handleToAddClass(c)} disabled={c.available_seats === 0} className="btn btn-outline">Select</button>
+                                <button onClick={() => handleToAddClass(c)} disabled={c.available_seats === 0 ||  isInstructor === true || isAdmin === true } className="btn btn-outline">Select</button>
                             </div>
                         </div>
                     </div>)
