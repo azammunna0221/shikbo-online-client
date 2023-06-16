@@ -13,7 +13,6 @@ const useMyClass = () => {
         queryKey: ['myClass', user?.email],
         queryFn: async () => {
             const res = await axiosSecure(`/myClass?email=${user?.email}`)
-            console.log(res);
             return res.data;
         },
     })

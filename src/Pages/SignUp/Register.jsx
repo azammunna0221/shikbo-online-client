@@ -23,7 +23,7 @@ const Register = () => {
                 updateUserProfile(data.name, data.url)
                     .then(() => {
                         const saveInfo = { name: data.name, email: data.email }
-                        fetch("http://localhost:5000/users", {
+                        fetch("https://summer-camp-school-server-xi-rose.vercel.app/users", {
                             method: "POST",
                             headers: {
                                 "content-type": 'application/json'
@@ -55,7 +55,7 @@ const Register = () => {
                 const loggedUser = result.user;
                 console.log(loggedUser);
                 const saveInfo = { name: loggedUser.displayName, email: loggedUser.email }
-                fetch("http://localhost:5000/users", {
+                fetch("https://summer-camp-school-server-xi-rose.vercel.app/users", {
                     method: "POST",
                     headers: {
                         "content-type": 'application/json'

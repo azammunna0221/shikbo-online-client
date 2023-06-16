@@ -20,7 +20,7 @@ const Classes = () => {
         console.log(c);
         if (user && user.email) {
             const selectCourse ={courseId: _id, name, instructor,available_seats,price, image, email: user.email}
-            fetch('http://localhost:5000/myClass', {
+            fetch('https://summer-camp-school-server-xi-rose.vercel.app/myClass', {
                 method: 'POST',
                 headers: {
                     "content-type" : "application/json"
