@@ -3,14 +3,18 @@ import { MdOutlineClass, MdPayment, MdHome } from 'react-icons/md';
 import { TbBooks } from 'react-icons/tb';
 import Theme from "../Components/Theme";
 import useMyClass from "../hooks/useMyClass";
+import useInstructor from "../hooks/useInstructor";
+import useAdmin from "../hooks/useAdmin";
 
 const Dashboard = () => {
 
     const [course] = useMyClass();
 
     //TODO Admin Swap
-    const isAdmin = true;
-    const isInstructor = false;
+    const [isAdmin] = useAdmin();
+    //const isAdmin = false;
+    const [isInstructor] = useInstructor();
+   // const isInstructor = true;
 
 
     return (

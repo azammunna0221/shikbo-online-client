@@ -1,24 +1,20 @@
 import { useQuery } from '@tanstack/react-query'
 import { AuthContext } from '../Provider/AuthProvider';
 import { useContext } from 'react';
+import useAxSecure from './useAxSecure';
 
 
 const useMyClass = () => {
 
     const { user } = useContext(AuthContext);
-    const token = localStorage.getItem('access-token');
+    const [axiosSecure] = useAxSecure();
     
     const { refetch, data: course = [] } = useQuery({
         queryKey: ['myClass', user?.email],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/myClass?email=${user?.email}`,
-                {
-                    headers: {
-                        authorization: `bearer ${token}`
-                    }
-                })
-
-            return res.json();
+            const res = await axiosSecure(`/myClass?email=${user?.email}`)
+            console.log(res);
+            return res.data;
         },
     })
     return [course, refetch]

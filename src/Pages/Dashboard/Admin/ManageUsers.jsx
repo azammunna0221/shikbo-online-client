@@ -111,7 +111,7 @@ const ManageUsers = () => {
                                     <div className="font-bold">{user.name}</div>
                                 </td>
                                 <td>{user.email}</td>
-                                <td>{user.role}</td>
+                                <td>{user.role || 'Student'} </td>
                                 <td>
                                     <button onClick={()=>handleAdmin(user)} disabled= {user.role === 'Admin'} className="btn btn-sm mb-1 ">Make Admin</button> <br />
                                     <button onClick={()=> handleInstructor(user)} disabled= {user.role === 'Instructor'} className="btn btn-sm ">Make Instructor</button>
