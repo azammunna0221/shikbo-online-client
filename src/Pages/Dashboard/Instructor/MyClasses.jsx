@@ -15,15 +15,7 @@ const MyClasses = () => {
         return (
             <div>
                 <Roll><h1>Total Courses : {filteredClasses.length}</h1></Roll>
-
-                {/* {filteredClasses.map((course, index) => (
-                    <div key={course.id}>
-                        <p>Name: {course.name}</p>
-                        <p>Email: {course.email}</p>
-                        <p>Age: {course.age}</p>
-                    </div>
-                ))} */}
-
+                
                 <div className="overflow-x-auto mb-7">
                     <table className="table">
                         {/* head */}

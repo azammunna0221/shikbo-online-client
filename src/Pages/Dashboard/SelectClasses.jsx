@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet";
 import { AiTwotoneDelete } from 'react-icons/ai';
 import Swal from "sweetalert2";
 import useMyClass from "../../hooks/useMyClass";
+import { Link } from "react-router-dom";
 
 
 const SelectClasses = () => {
@@ -47,7 +48,7 @@ const SelectClasses = () => {
             <div className=" font-bold uppercase mt-10 bg-amber-200 p-4 rounded-md flex justify-evenly align-middle">
                 <h1>Total Classes: {course.length}</h1>
                 <h1>Total Price: <span className=" text-red-600">${total}</span></h1>
-                <button className="btn btn-sm">Pay</button>
+                <Link to="/dashboard/payment"><button className="btn btn-sm">Pay</button></Link>
             </div>
             <div className="overflow-x-auto mb-7">
                 <table className="table">

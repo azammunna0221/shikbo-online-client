@@ -42,7 +42,7 @@ const Dashboard = () => {
                                 <li className="font-bold m-4">Instructor Panel</li>
                                 <li><Link><MdHome />Instructor Home</Link></li>
                                 <li><Link to='/dashboard/addClass'><MdPayment />Add a class</Link></li>
-                                <li><Link to='/dashboard/myClasses'><TbBooks />My classes</Link></li>
+                                <li><Link to='/dashboard/myClasses' ><TbBooks />My classes</Link></li>
                             </> : <>
                                 <li><Theme></Theme></li>
                                 <li className="font-bold m-4">Student Panel</li>
