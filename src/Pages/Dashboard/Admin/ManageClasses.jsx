@@ -1,11 +1,53 @@
 import { Helmet } from "react-helmet";
 import useAllClasses from "../../../hooks/useAllClasses";
 import { Fade } from "react-awesome-reveal";
+import Swal from "sweetalert2";
 
 
 const ManageClasses = () => {
 
-    const [courses] = useAllClasses()
+    const [courses, refetch] = useAllClasses()
+
+    // Approved classes
+    const handleApprovedClasses = id =>{
+        fetch(`https://summer-camp-school-server-xi-rose.vercel.app/classes/approved/${id}`, {
+            method: 'PATCH'
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            if(data.modifiedCount){
+                refetch();
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: `Class is Approved Now`,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+        })
+            
+    }
+
+    const handleDeny = id =>{
+        console.log(id);
+        fetch(`https://summer-camp-school-server-xi-rose.vercel.app/classes/deny/${id}`,{
+            method: 'PATCH'
+        })
+        .then(res => res.json())
+        .then (data => console.log(data))
+    }
+
+    
+
+   /*  Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: `${course.name} is Approved Now`,
+        showConfirmButton: false,
+        timer: 1500
+    }) */
 
     return (
         <div className="w-full">
@@ -53,10 +95,10 @@ const ManageClasses = () => {
                                 <td>{course.status || 'Pending'}</td>
                                 <Fade cascade>
                                     <td>
-                                        <button className="btn btn-sm mb-1 ">Approved</button> <br />
-                                        <button className="btn btn-sm mb-1">Deny</button> <br />
+                                        <button onClick={()=>handleApprovedClasses(course._id)} className="btn btn-sm mb-1 ">Approved</button> <br />
+                                        <button onClick={() => handleDeny(course._id)} className="btn btn-sm mb-1">Deny</button> <br />
                                         <button className="btn btn-sm">Feedback</button>
-                                    </td> 
+                                    </td>
                                 </Fade>
                             </tr>)
                         }
