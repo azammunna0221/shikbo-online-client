@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { FiSun, FiMoon } from 'react-icons/fi';
 
 
 const Theme = () => {
@@ -15,8 +16,8 @@ const Theme = () => {
     return (
         <label className="swap swap-rotate">
             <input onClick={toggleTheme} type="checkbox" />
-            <div className="swap-on">DARK</div>
-            <div className="swap-off">LIGHT</div>
+            <div className="swap-on"><FiMoon/></div>
+            <div className="swap-off"><FiSun/></div>
         </label>
     );
 };
